@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple</title>
+</head>
+<body>
+    <h1>Simple Websocket server</h1>
+    <div class="content">
+        <input type="text" id="input-field">
+        <button onclick=send()>test</button>
+    </div>
+    <pre id="out"></pre>
+</body>
+<script>
+    var input = document.getElementById("input-field")
+    var output = document.getElementById("out")
+    var socket = new WebSocket("ws://localhost:8080/test")
+
+    output.classList.add("new")
+
+    socket.onopen = function (){
+        output.innerHTML += "Succes connect!"
+    }
+
+    socket.onmessage = function(){
+        output.innerHTML += "Message: " + e.data + "\n"
+    }
+
+    function send(){
+        socket.send(input.value)
+        input.value = ""
+    }
+</script>
+</html>
